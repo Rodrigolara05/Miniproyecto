@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Entities.Comment>
+
+<h2>Comments</h2>
+<table class="table">
+    <tr>
+        <th>PostId</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Body</th>
+    </tr>
+    @foreach (var item in Model.ToList())
+    {
+        <tr>
+            <td>@item.PostId</td>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Email</td>
+            <td>@item.Body</td>
+        </tr>
+    }
+</table>

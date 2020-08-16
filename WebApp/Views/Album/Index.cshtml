@@ -1,0 +1,41 @@
+﻿
+@model IEnumerable<Entities.Album>
+@{
+    ViewData["Title"] = "Album Page";
+}
+
+<h1>Album List</h1>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+    </tr>
+    @foreach (var item in Model.ToList())
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                <input class="btn-primary" 
+                       type="button" 
+                       value="Visualizar Álbum" 
+                       onclick="location.href='@Url.Action("PhotosByAlbumId", "Photo", new { AlbumId = item.Id })'" />
+            </td>
+
+        </tr>
+    }
+</table>

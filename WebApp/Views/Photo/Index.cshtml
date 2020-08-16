@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Entities.Photo>
+@{
+    ViewData["Title"] = "Photos Page";
+}
+
+<h1>Photos List</h1>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AlbumId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Url)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThumbnailUtl)
+        </th>
+    </tr>
+    @foreach (var item in Model.ToList())
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.AlbumId)</td>
+            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+            <td>
+                <a href="@item.Url" target="_blank">@item.Url</a>
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.ThumbnailUtl)</td>
+            <td>
+                <input type="button" data-url='@Url.Action("CommentsByPhotoId","Comment", new { photoId = item.Id } )'
+                        class="btn-primary btnComments" value="Ver Comentarios"/>
+            </td>
+
+
+        </tr>
+    }
+</table>
+
+<div id="commentsDiv">
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $('.btnComments').on('click', function () {
+            var $commentsDiv = $('#commentsDiv'),
+                url = $(this).data('url');
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                cache: false,
+                success: function (data) {
+                    $commentsDiv.html(data);
+                },
+                error: function (e) {
+                    $commentsDiv.html("<p>Sin Comentarios</p>");
+                }
+                
+            });
+        });
+
+    </script>
+}
